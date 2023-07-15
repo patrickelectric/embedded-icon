@@ -1,0 +1,30 @@
+[submodule "MaterialDesign"]
+	path = MaterialDesign
+	url = https://github.com/Templarian/MaterialDesign
+[submodule "embedded-icon/build/libraries/MaterialDesign"]
+	path = embedded-icon/build/libraries/MaterialDesign
+	url = https://github.com/Templarian/MaterialDesign
+[submodule "embedded-icon/build/libraries/iconoir"]
+	path = embedded-icon/build/libraries/iconoir
+	url = https://github.com/iconoir-icons/iconoir
+[submodule "embedded-icon/build/libraries/tabler-icons"]
+	path = embedded-icon/build/libraries/tabler-icons
+	url = https://github.com/tabler/tabler-icons
+[submodule "embedded-icon/build/libraries/simple-icons"]
+	path = embedded-icon/build/libraries/simple-icons
+	url = https://github.com/simple-icons/simple-icons
+[submodule "embedded-icon/build/libraries/ionicons"]
+	path = embedded-icon/build/libraries/ionicons
+	url = https://github.com/ionic-team/ionicons
+[submodule "build/libraries/ionicons"]
+	path = build/libraries/ionicons
+	url = https://github.com/ionic-team/ionicons
+[submodule "build/libraries/simple-icons"]
+	path = build/libraries/simple-icons
+	url = https://github.com/simple-icons/simple-icons
+[submodule "build/libraries/iconoir"]
+	path = build/libraries/iconoir
+	url = https://github.com/iconoir-icons/iconoir
+[submodule "build/libraries/MaterialDesign"]
+	path = build/libraries/MaterialDesign
+	url = https://github.com/Templarian/MaterialDesign

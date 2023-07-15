@@ -1,0 +1,55 @@
+[package]
+name = "embedded-icon"
+version = "0.0.1"
+edition = "2021"
+license = "MIT"
+authors = ["Patrick José Pereira <patrickelectric@gmail.com>"]
+description = "7200+ icons for embedded-graphics, ported from the MDI icon pack (https://pictogrammers.com/library/mdi/)"
+readme = "../README.md"
+repository = "https://github.com/patrickelectric/embedded-icon"
+build = "build/main.rs"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[profile.dev.build-override]
+opt-level = 3
+
+[features]
+12px = []
+18px = []
+24px = []
+32px = []
+48px = []
+96px = []
+144px = []
+
+iconoir = []
+ionic = []
+mdi = []
+simple = []
+
+default = ["24px", "mdi"]
+all-resolutions = ["12px", "18px", "24px", "32px", "48px", "96px", "144px"]
+
+[dependencies]
+bit_field = "0.10"
+embedded-graphics = "^0.8"
+paste = "1.0"
+static_assertions = "1.1"
+
+[dev-dependencies]
+anyhow = "1.0"
+colorous = "1.0.10"
+embedded-graphics-simulator = "0.5.0"
+embedded-graphics = "0.8.0"
+embedded-icon = { path = ".", features = ["32px", "iconoir", "ionic", "mdi", "simple"] }
+
+[build-dependencies]
+convert_case = "0.6.0"
+bit-vec = "0.6"
+resvg = "0.29"
+usvg = "0.29"
+quote = "1.0"
+rayon = "1.7"
+proc-macro2 = "1.0"
