@@ -167,7 +167,7 @@ fn create_library(library: &Library, output_dir: &PathBuf) -> Module {
         .collect();
     names.sort();
 
-    library.sizes.iter().for_each(|size| {
+    library.sizes.par_iter().for_each(|size| {
         let folder = output_dir.join(&format!("{size}px"));
         fs::create_dir_all(&folder).unwrap();
 
@@ -235,10 +235,10 @@ fn main() {
         },
     ];
 
-    for library in &libraries {
+    libraries.par_iter().for_each(|library| {
         let output = &rendered_dir.join(&library.name);
         let module = create_library(&library, output);
         generate_mod(&module, output);
-    }
+    });
     generate_main_mod(&libraries, &rendered_dir);
 }
