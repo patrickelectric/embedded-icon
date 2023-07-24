@@ -9,6 +9,7 @@ use std::fs;
 use std::fs::File;
 use std::path::Path;
 use std::path::PathBuf;
+use std::process::Command;
 use usvg::{FitTo, Tree};
 
 const ALPHA_CUTOFF: u8 = 0x60;
@@ -205,6 +206,16 @@ fn main() {
     let libraries_dir = project_dir.join("build/libraries");
     let rendered_dir = project_dir.join("rendered");
     let default_sizes = vec![12, 18, 24, 32, 48, 96, 144];
+
+    if let Err(error) = Command::new("git")
+        .arg("submodule")
+        .arg("update")
+        .arg("--init")
+        .current_dir(&project_dir)
+        .status()
+    {
+        eprintln!("{error}");
+    }
 
     let libraries = vec![
         Library {
