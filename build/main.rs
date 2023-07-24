@@ -63,8 +63,6 @@ pub fn generate_mod(module: &Module, output_dir: &PathBuf) {
     let file_name = output_dir.join("mod.rs");
     let names = module.svg_names.clone();
 
-    println!("cargo:warning=Bits {names:#?}");
-
     let sizes_tokens: Vec<proc_macro2::TokenStream> = module
         .sizes
         .iter()
@@ -73,7 +71,6 @@ pub fn generate_mod(module: &Module, output_dir: &PathBuf) {
             let size_module_ident = quote::format_ident!("size{size}px");
             // Remove type from size variable, otherwise it'll be 12u32
             let size_ident = proc_macro2::Literal::usize_unsuffixed(*size);
-            println!("cargo:warning=Mod for {size}");
             let icons_tokens: Vec<proc_macro2::TokenStream> = names
                 .iter()
                 .map(|icon| {
@@ -106,7 +103,6 @@ pub fn generate_mod(module: &Module, output_dir: &PathBuf) {
         #(#sizes_tokens)*
     };
 
-    dbg!("oi");
     let mut out_file = File::create(&file_name).unwrap();
     writeln!(out_file, "{}", token).unwrap();
 }
@@ -172,7 +168,6 @@ fn create_library(library: &Library, output_dir: &PathBuf) -> Module {
     names.sort();
 
     library.sizes.iter().for_each(|size| {
-        println!("cargo:warning=Create {size}");
         let folder = output_dir.join(&format!("{size}px"));
         fs::create_dir_all(&folder).unwrap();
 
@@ -241,12 +236,9 @@ fn main() {
     ];
 
     for library in &libraries {
-        println!("cargo:warning=This is a warning message");
-
         let output = &rendered_dir.join(&library.name);
         let module = create_library(&library, output);
         generate_mod(&module, output);
     }
     generate_main_mod(&libraries, &rendered_dir);
-    println!("cargo:warning=Done!");
 }
