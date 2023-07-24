@@ -58,7 +58,7 @@ fn starts_with_digit(s: &str) -> bool {
     s.chars().next().and_then(|c| c.to_digit(10)).is_some()
 }
 
-pub fn generate_mod(module: &Module, output_dir: &PathBuf) {
+pub fn generate_mod(module: &Module, output_dir: &Path) {
     let module_ident = quote::format_ident!("{}", module.name.clone());
     let file_name = output_dir.join("mod.rs");
     let names = module.svg_names.clone();
@@ -79,7 +79,7 @@ pub fn generate_mod(module: &Module, output_dir: &PathBuf) {
                     } else {
                         quote::format_ident!("{}", icon.clone().to_case(Case::Pascal))
                     };
-                    let icon_name = format!("{icon}");
+                    let icon_name = icon.to_string();
                     quote! {
                         include_icon!(#icon_ident, #module_ident, #icon_name, #size_ident);
                     }
@@ -103,17 +103,17 @@ pub fn generate_mod(module: &Module, output_dir: &PathBuf) {
         #(#sizes_tokens)*
     };
 
-    let mut out_file = File::create(&file_name).unwrap();
+    let mut out_file = File::create(file_name).unwrap();
     writeln!(out_file, "{}", token).unwrap();
 }
 
-pub fn generate_main_mod(libraries: &Vec<Library>, output_dir: &PathBuf) {
+pub fn generate_main_mod(libraries: &[Library], output_dir: &Path) {
     let file_name = output_dir.join("mod.rs");
 
     let tokens: Vec<proc_macro2::TokenStream> = libraries
         .iter()
         .map(|library| {
-            let feature_ident = format!("{}", library.name);
+            let feature_ident = library.name.to_string();
             let library_ident = quote::format_ident!("{}", library.name);
             quote! {
                 #[cfg(feature = #feature_ident)]
@@ -126,7 +126,7 @@ pub fn generate_main_mod(libraries: &Vec<Library>, output_dir: &PathBuf) {
         #(#tokens)*
     };
 
-    let mut out_file = File::create(&file_name).unwrap();
+    let mut out_file = File::create(file_name).unwrap();
     writeln!(out_file, "{}", token).unwrap();
 }
 
@@ -147,7 +147,7 @@ fn get_all_svgs_from_path(path: &Path) -> Vec<PathBuf> {
         .collect()
 }
 
-fn create_library(library: &Library, output_dir: &PathBuf) -> Module {
+fn create_library(library: &Library, output_dir: &Path) -> Module {
     let mut names: Vec<String> = library
         .svgs
         .iter()
@@ -168,7 +168,7 @@ fn create_library(library: &Library, output_dir: &PathBuf) -> Module {
     names.sort();
 
     library.sizes.par_iter().for_each(|size| {
-        let folder = output_dir.join(&format!("{size}px"));
+        let folder = output_dir.join(format!("{size}px"));
         fs::create_dir_all(&folder).unwrap();
 
         library.svgs.iter().for_each(|file| {
@@ -206,7 +206,7 @@ fn main() {
         .arg("submodule")
         .arg("update")
         .arg("--init")
-        .current_dir(&project_dir)
+        .current_dir(project_dir)
         .status()
     {
         eprintln!("{error}");
@@ -231,13 +231,13 @@ fn main() {
         Library {
             name: "simple".into(),
             svgs: get_all_svgs_from_path(&libraries_dir.join("simple-icons/icons")),
-            sizes: default_sizes.clone(),
+            sizes: default_sizes,
         },
     ];
 
     libraries.par_iter().for_each(|library| {
         let output = &rendered_dir.join(&library.name);
-        let module = create_library(&library, output);
+        let module = create_library(library, output);
         generate_mod(&module, output);
     });
     generate_main_mod(&libraries, &rendered_dir);
