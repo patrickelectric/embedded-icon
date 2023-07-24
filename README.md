@@ -16,7 +16,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-embedded-icon = "0.1.0"
+embedded-icon = "0.0.1"
 ```
 
 ## 🎨 Icon Packs
