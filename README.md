@@ -28,8 +28,9 @@ embedded-icon = "0.0.1"
 ## 🖼 Usage
 ```rs
 use embedded_graphics::image::Image;
+use embedded_graphics::pixelcolor::Rgb888;
 use embedded_graphics::prelude::*;
-use embedded_icon::{simple::size32::Github};
+use embedded_icon::{simple::size32px::Github};
 
 let github_icon = Github::new(Rgb888::CSS_ORANGE);
 Image::new(github_icon, Point::new(10, 10)).draw(display).ok();
