@@ -1,5 +1,9 @@
 # 📦 embedded-icon
 
+[![Build and Create Docs](https://github.com/patrickelectric/embedded-icon/actions/workflows/doc.yml/badge.svg)](https://github.com/patrickelectric/embedded-icon/actions/workflows/doc.yml)
+[![Crates.io](https://img.shields.io/crates/v/embedded_icon.svg)](https://crates.io/crates/embedded_icon)
+[![Docs.rs](https://img.shields.io/badge/Doc-GH%20Pages-green)](https://patrickelectric.work/embedded-icon/embedded_icon/index.html)
+
 12600+ 🖼 icons for embedded-graphics.
 
 <p align="center">
