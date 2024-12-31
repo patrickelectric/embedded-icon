@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["include_icon"],"mod":["icons","prelude"],"struct":["Icon"],"trait":["EmbeddedIcon","NewIcon"]};
