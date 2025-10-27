@@ -7,7 +7,7 @@
 12600+ 🖼 icons for embedded-graphics.
 
 <p align="center">
-  <img width="460" height="300" src="./doc/screenshot.png">
+  <img width="460" height="300" src="doc/screenshot.png">
 </p>
 
 # 🚀 Features
